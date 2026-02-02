@@ -13,6 +13,7 @@ TARGET_CHANNEL_ID = 1467576625364205745 # Öneri kanalının ID'si
 TARGET_ROLE_ID = 1467577041829494838 # Etiketlenecek rolün ID'si (Örn: @AnimeSeverler)
 
 intents = discord.Intents.default()
+intents.message_content = True  # Komutları okuması için bu satır ŞART
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # Her gün saat 18:00'da çalışacak (UTC)
