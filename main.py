@@ -9,14 +9,14 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 # AYARLAR
-TARGET_CHANNEL_ID = 1467576625364205745  # Öneri kanalının ID'si
-TARGET_ROLE_ID = 1467577041829494838    # Etiketlenecek rolün ID'si (Örn: @AnimeSeverler)
+TARGET_CHANNEL_ID = 1467576625364205745 # Öneri kanalının ID'si
+TARGET_ROLE_ID = 1467577041829494838 # Etiketlenecek rolün ID'si (Örn: @AnimeSeverler)
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-# Her gün saat 10:00'da çalışacak (UTC)
-scheduled_time = time(hour=10, minute=0, tzinfo=timezone.utc)
+# Her gün saat 18:00'da çalışacak (UTC)
+scheduled_time = time(hour=15, minute=0, tzinfo=timezone.utc)
 
 async def get_recommendation():
     url = "https://api.jikan.moe/v4/random/anime"
@@ -49,6 +49,13 @@ async def daily_recommendation():
             
             # Mesajı hem etiketle hem de embed ile gönder
             await channel.send(content=mention_text, embed=embed)
+
+@bot.command(name="test")
+async def test_rec(ctx):
+    """Sadece deneme amaçlı: Botun öneri yapmasını manuel tetikler."""
+    print("Test komutu algılandı, öneri gönderiliyor...")
+    await daily_recommendation()
+    await ctx.send("✅ Test önerisi başarıyla gönderildi!")
 
 @bot.event
 async def on_ready():
